@@ -57,34 +57,14 @@
           }}</span></i
         >
       </div>
-      <div id="socialShareIcon" @click="this.toggleSocialSharePopover()">
+      <div @click="copyLinkToClipboard">
         <i class="fa-solid fa-share-nodes"></i>
       </div>
-      <div id="socialShare">
-        <div
-          v-if="this.showSocialShare"
-          class="flex space-x-2 drop-shadow-lg border-2 p-2"
-        >
-          <i
-            class="fa-brands fa-linkedin text-3xl text-gray-700 hover:text-teal-700"
-          ></i>
-          <i
-            class="fa-brands fa-facebook-square text-3xl text-gray-700 hover:text-teal-700"
-          ></i>
-          <i
-            class="fa-brands fa-twitter-square text-3xl text-gray-700 hover:text-teal-700"
-          ></i>
-          <i
-            class="fa-brands fa-google-plus-square text-3xl text-gray-700 hover:text-teal-700"
-          ></i>
-          <i
-            class="fa-brands fa-github-square text-3xl text-gray-700 hover:text-teal-700"
-          ></i>
-          <i
-            class="fa-brands fa-dev text-3xl text-gray-700 hover:text-teal-700"
-          ></i>
-        </div>
-      </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div v-if="showTooltip" class="tooltip">
+      Ссылка скопирована!
     </div>
 
     <!-- Comment Section -->
@@ -102,7 +82,6 @@
 import { POST_BY_SLUG } from "@/queries";
 import CommentSectionComponent from "@/components/CommentSection.vue";
 import { UPDATE_POST_LIKE } from "@/mutations";
-import { createPopper } from "@popperjs/core";
 
 export default {
   name: "PostView",
@@ -117,7 +96,7 @@ export default {
       numberOfLikes: 0,
       userID: null,
       showComment: false,
-      showSocialShare: false,
+      showTooltip: false,
     };
   },
 
@@ -159,22 +138,6 @@ export default {
     this.numberOfLikes = parseInt(this.postBySlug.numberOfLikes);
   },
 
-  mounted() {
-    const socialShareIcon = document.querySelector("#socialShareIcon");
-    const socialShare = document.querySelector("#socialShare");
-    createPopper(socialShareIcon, socialShare, {
-      placement: "right",
-      modifiers: [
-        {
-          name: "offset",
-          options: {
-            offset: [-10, 20],
-          },
-        },
-      ],
-    });
-  },
-
   methods: {
     formatDate(x) {
       let date = new Date(x);
@@ -213,9 +176,34 @@ export default {
     toggleCommentSection() {
       this.showComment = !this.showComment;
     },
-    toggleSocialSharePopover() {
-      this.showSocialShare = !this.showSocialShare;
+    copyLinkToClipboard() {
+      const url = window.location.href;
+      navigator.clipboard.writeText(url).then(
+        () => {
+          this.showTooltip = true;
+          setTimeout(() => {
+            this.showTooltip = false;
+          }, 2000);
+        },
+        (err) => {
+          console.error('Ошибка копирования: ', err);
+        }
+      );
     },
   },
 };
 </script>
+
+<style scoped>
+.tooltip {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 1000;
+}
+</style>
