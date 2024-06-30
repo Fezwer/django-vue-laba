@@ -104,9 +104,10 @@ export default {
 
         this.userStore.setToken(user.data.tokenAuth.token);
         this.userStore.setUser(user.data.tokenAuth.user);
-        this.router.push({ name: "Profile" }); // перенаправление на страницу профиля
+        this.router.push({ name: "Profile" }).then(() => {
+          window.location.reload();
+        });
       } catch (error) {
-        // Обработка ошибки
         this.errorMessage =
           "Ошибка регистрации. Пожалуйста, попробуйте еще раз.";
         if (error.networkError) {

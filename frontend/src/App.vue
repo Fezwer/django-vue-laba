@@ -3,7 +3,7 @@
     <div class="flex flex-col justify-between h-screen">
       <header class="flex flex-row items-center justify-between py-10">
         <div class="nav-logo text-2xl font-bold">
-          <router-link to="/" v-if="this.mySite">{{ this.mySite.name }}</router-link>
+          <router-link to="/" v-if="mySite">{{ mySite.name }}</router-link>
         </div>
         <div class="nav-links hidden sm:block">
           <router-link
@@ -22,20 +22,20 @@
             >Теги</router-link
           >
           <router-link
-            v-if="!this.user.isAuthenticated"
+            v-if="!user.isAuthenticated"
             to="/signin"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Авторизация</router-link
           >
           <router-link
-            v-if="this.user.isAuthenticated"
+            v-if="user.isAuthenticated"
             to="/profile"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Профиль</router-link
           >
           <a
-            v-if="this.user.isAuthenticated"
-            @click="userSignOut()"
+            v-if="user.isAuthenticated"
+            @click="userSignOut"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Выйти</a
           >
@@ -45,18 +45,18 @@
             type="button"
             class="ml-1 mr-1 h-8 w-8 rounded py-1"
             aria-label="Toggle Menu"
-            @click="this.menuOpen = !this.menuOpen"
+            @click="menuOpen = !menuOpen"
           >
-            <i v-if="this.menuOpen" class="fa-solid fa-xmark"></i>
+            <i v-if="menuOpen" class="fa-solid fa-xmark"></i>
             <i v-else class="fa-solid fa-bars"></i>
           </button>
           <div
-            :class="{ 'translate-x-full': !this.menuOpen }"
+            :class="{ 'translate-x-full': !menuOpen }"
             class="fixed top-24 right-0 z-10 h-full w-full transform bg-gray-200 opacity-95 duration-300 ease-in-out dark:bg-gray-800"
           >
             <nav
               class="fixed mt-8 w-full h-full flex flex-col space-y-2"
-              @click="this.menuOpen = !this.menuOpen"
+              @click="menuOpen = !menuOpen"
             >
               <router-link
                 to="/"
@@ -73,24 +73,21 @@
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Теги</router-link
               >
-
               <router-link
-                v-if="!this.user.isAuthenticated"
+                v-if="!user.isAuthenticated"
                 to="/signin"
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Авторизоваться</router-link
               >
-
               <router-link
-                v-if="this.user.isAuthenticated"
+                v-if="user.isAuthenticated"
                 to="/profile"
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Профиль</router-link
               >
-
               <a
-                v-if="this.user.isAuthenticated"
-                @click="userSignOut()"
+                v-if="user.isAuthenticated"
+                @click="userSignOut"
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Выйти</a
               >
@@ -125,11 +122,13 @@
 <script>
 import { SITE_INFO } from "@/queries";
 import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const userStore = useUserStore();
-    return { userStore };
+    const router = useRouter();
+    return { userStore, router };
   },
 
   data() {
@@ -160,6 +159,9 @@ export default {
     userSignOut() {
       this.userStore.removeToken();
       this.userStore.removeUser();
+      this.router.push({ name: "SignIn" }).then(() => {
+        window.location.reload();
+      });
     },
   },
 };

@@ -81,9 +81,10 @@ export default {
         });
         this.userStore.setToken(user.data.tokenAuth.token);
         this.userStore.setUser(user.data.tokenAuth.user);
-        this.router.push({ name: "Profile" }); // перенаправление на страницу профиля
+        this.router.push({ name: "Profile" }).then(() => {
+          window.location.reload();
+        });
       } catch (error) {
-        // Обработка ошибки
         this.errorMessage =
           "Неверное имя пользователя или пароль. Пожалуйста, попробуйте еще раз.";
         console.error("Ошибка авторизации:", error);

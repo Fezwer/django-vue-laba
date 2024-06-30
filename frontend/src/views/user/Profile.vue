@@ -263,7 +263,7 @@ export default {
         JSON.stringify(user.data.updateUserProfile.user)
       );
 
-      window.location.reload(); // Refresh the page
+      window.location.reload();
     },
 
     selectImage(event) {
