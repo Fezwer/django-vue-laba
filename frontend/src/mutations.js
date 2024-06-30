@@ -24,7 +24,6 @@ export const USER_SIGNIN = gql`
         avatar
         bio
         location
-        website
       }
     }
   }
@@ -75,7 +74,6 @@ export const UPDATE_USER_PROFILE = gql`
     $avatar: Upload!
     $bio: String!
     $location: String!
-    $website: String!
   ) {
     updateUserProfile(
       userId: $userID
@@ -84,7 +82,6 @@ export const UPDATE_USER_PROFILE = gql`
       avatar: $avatar
       bio: $bio
       location: $location
-      website: $website
     ) {
       user {
         id
@@ -95,7 +92,6 @@ export const UPDATE_USER_PROFILE = gql`
         avatar
         bio
         location
-        website
         commentSet {
           id
           content

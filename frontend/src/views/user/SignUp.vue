@@ -39,14 +39,13 @@
         >
           Зарегистрироваться
         </button>
-                <div class="text-right">
+        <div class="text-right">
           <small
             >Уже есть аккаунт? Скорее входи!
             <router-link to="/signin" class="text-teal-500 hover:underline"
               >Авторизоваться</router-link
             >
-            </small
-          >
+          </small>
         </div>
       </div>
     </form>

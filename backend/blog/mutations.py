@@ -44,9 +44,8 @@ class UpdateUserProfile(graphene.Mutation):
         avatar = Upload(required=False)
         bio = graphene.String(required=False)
         location = graphene.String(required=False)
-        website = graphene.String(required=False)
 
-    def mutate(self, info, user_id, first_name='', last_name='', avatar='', bio='', location='', website=''):
+    def mutate(self, info, user_id, first_name='', last_name='', avatar='', bio='', location=''):
         user = models.User.objects.get(pk=user_id)
 
         user.first_name = first_name
@@ -54,7 +53,6 @@ class UpdateUserProfile(graphene.Mutation):
         user.avatar = avatar
         user.bio = bio
         user.location = location
-        user.website = website
 
         user.save()
 

@@ -14,9 +14,7 @@
         </p>
         <p class="font-sans text-lg">@{{ this.userInfo.username }}</p>
         <p>Местоположение: {{ this.userInfo.location }}</p>
-        <p>
-          Сайт: <a :href="this.userInfo.website">{{ this.userInfo.website }}</a>
-        </p>
+        <p></p>
       </div>
       <div class="font-serif">
         <p>
@@ -146,19 +144,6 @@
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
                     />
                   </div>
-                  <div>
-                    <label
-                      for="website"
-                      class="block mb-1 text-gray-600 font-medium"
-                      >Сайт</label
-                    >
-                    <input
-                      v-model="profileUpdateInputs.website"
-                      name="website"
-                      type="text"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
-                    />
-                  </div>
                 </div>
                 <div>
                   <label for="bio" class="block mb-1 text-gray-600 font-medium"
@@ -206,7 +191,8 @@
       >
         <h3 class="font-sans font-bold text-lg">
           <a :href="`/post/${comment.post.slug}`">{{ comment.post.title }}</a> -
-          <span v-if="comment.isApproved" class="text-teal-500">Подтверждены</span
+          <span v-if="comment.isApproved" class="text-teal-500"
+            >Подтверждены</span
           ><span v-else class="text-red-500"> Не подтверждены</span>
         </h3>
         <p class="font-serif text-gray-500 text-sm pt-2">
@@ -240,7 +226,6 @@ export default {
         avatar: null,
         email: "",
         location: "",
-        website: "",
         bio: "",
       },
     };
@@ -271,7 +256,6 @@ export default {
           avatar: this.profileUpdateInputs.avatar,
           bio: this.profileUpdateInputs.bio,
           location: this.profileUpdateInputs.location,
-          website: this.profileUpdateInputs.website,
         },
       });
       localStorage.setItem(

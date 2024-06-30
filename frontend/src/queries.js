@@ -128,7 +128,6 @@ export const CURRENT_USER = gql`
       avatar
       bio
       location
-      website
       commentSet {
         id
         content

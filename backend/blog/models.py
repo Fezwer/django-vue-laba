@@ -25,7 +25,6 @@ class User(AbstractUser):
         upload_to='users/avatars/%Y/%m/%d/', default='users/avatars/default.jpg', verbose_name='Аватар')
     bio = models.TextField(max_length=500, null=True, verbose_name='Биография')
     location = models.CharField(max_length=30, null=True, verbose_name='Местоположение')
-    website = models.CharField(max_length=100, null=True, verbose_name='Веб-сайт')
     joined_date = models.DateField(auto_now_add=True, verbose_name='Дата регистрации')
 
     class Meta:
