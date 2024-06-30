@@ -18,7 +18,7 @@
               >Почта</label
             >
             <input
-              type="text"
+              type="email"
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
               v-model="signUpDetails.email"
             />
@@ -28,7 +28,7 @@
               >Пароль</label
             >
             <input
-              type="text"
+              type="password"
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
               v-model="signUpDetails.password"
             />
@@ -47,6 +47,9 @@
             >
           </small>
         </div>
+        <div v-if="errorMessage" class="mt-2 text-red-500">
+          {{ errorMessage }}
+        </div>
       </div>
     </form>
   </div>
@@ -55,13 +58,15 @@
 <script>
 import { useUserStore } from "@/stores/user";
 import { USER_SIGNUP, USER_SIGNIN } from "@/mutations";
+import { useRouter } from "vue-router";
 
 export default {
   name: "SignUpView",
 
   setup() {
     const userStore = useUserStore();
-    return { userStore };
+    const router = useRouter();
+    return { userStore, router };
   },
 
   data() {
@@ -71,32 +76,48 @@ export default {
         email: "",
         password: "",
       },
+      errorMessage: null, // добавляем переменную для хранения сообщения об ошибке
     };
   },
 
   methods: {
     async userSignUp() {
-      // Register user
-      await this.$apollo.mutate({
-        mutation: USER_SIGNUP,
-        variables: {
-          username: this.signUpDetails.username,
-          email: this.signUpDetails.email,
-          password: this.signUpDetails.password,
-        },
-      });
+      try {
+        // Register user
+        await this.$apollo.mutate({
+          mutation: USER_SIGNUP,
+          variables: {
+            username: this.signUpDetails.username,
+            email: this.signUpDetails.email,
+            password: this.signUpDetails.password,
+          },
+        });
 
-      // Sign in
-      const user = await this.$apollo.mutate({
-        mutation: USER_SIGNIN,
-        variables: {
-          username: this.signUpDetails.username,
-          password: this.signUpDetails.password,
-        },
-      });
+        // Sign in
+        const user = await this.$apollo.mutate({
+          mutation: USER_SIGNIN,
+          variables: {
+            username: this.signUpDetails.username,
+            password: this.signUpDetails.password,
+          },
+        });
 
-      this.userStore.setToken(user.data.tokenAuth.token);
-      this.userStore.setUser(user.data.tokenAuth.user);
+        this.userStore.setToken(user.data.tokenAuth.token);
+        this.userStore.setUser(user.data.tokenAuth.user);
+        this.router.push({ name: "Profile" }); // перенаправление на страницу профиля
+      } catch (error) {
+        // Обработка ошибки
+        this.errorMessage =
+          "Ошибка регистрации. Пожалуйста, попробуйте еще раз.";
+        if (error.networkError) {
+          this.errorMessage = `Network error: ${error.networkError.message}`;
+        } else if (error.graphQLErrors) {
+          this.errorMessage = `GraphQL error: ${error.graphQLErrors
+            .map((e) => e.message)
+            .join(", ")}`;
+        }
+        console.error("Ошибка регистрации:", error);
+      }
     },
   },
 };
