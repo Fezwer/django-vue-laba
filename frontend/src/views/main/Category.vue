@@ -8,17 +8,6 @@
 
     <post-list :posts="this.postsByCategory"></post-list>
 
-    <div class="space-y-2 pt-6 pb-8 md:space-y-5">
-      <nav class="flex justify-between">
-        <button rel="previous" class="hover:underline hover:text-blue-700">
-          Предыдущая
-        </button>
-        <span>1 of 2</span>
-        <button rel="next" class="hover:underline hover:text-blue-700">
-          Следующая
-        </button>
-      </nav>
-    </div>
   </div>
 </template>
 

@@ -63,7 +63,9 @@
     </div>
 
     <!-- Tooltip -->
-    <div v-if="showTooltip" class="tooltip">Ссылка скопирована!</div>
+    <div v-if="showTooltip" class="tooltip">
+      Ссылка скопирована!
+    </div>
 
     <!-- Comment Section -->
     <!-- Pass the approved comments and the post id to the comment component -->
@@ -184,7 +186,7 @@ export default {
           }, 2000);
         },
         (err) => {
-          console.error("Ошибка копирования: ", err);
+          console.error('Ошибка копирования: ', err);
         }
       );
     },

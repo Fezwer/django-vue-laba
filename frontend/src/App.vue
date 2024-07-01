@@ -100,7 +100,7 @@
       <router-view />
     </main>
 
-    <footer class="w-full bg-gray-900 text-white py-6">
+    <footer class="w-full text-gray-800 py-6">
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 text-center text-sm space-x-2"
       >

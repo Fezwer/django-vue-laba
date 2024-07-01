@@ -190,10 +190,7 @@
         class="py-4"
       >
         <h3 class="font-sans font-bold text-lg">
-          <a :href="`/post/${comment.post.slug}`">{{ comment.post.title }}</a> -
-          <span v-if="comment.isApproved" class="text-teal-500"
-            >Подтверждены</span
-          ><span v-else class="text-red-500"> Не подтверждены</span>
+          <a :href="`/post/${comment.post.slug}`">{{ comment.post.title }}</a>
         </h3>
         <p class="font-serif text-gray-500 text-sm pt-2">
           {{ comment.content }}
