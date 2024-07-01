@@ -98,7 +98,7 @@ class Post(models.Model):
 class Comment(models.Model):
     content = models.TextField(max_length=1000, verbose_name='Содержание')
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
-    is_approved = models.BooleanField(default=False, verbose_name='Одобрен')
+    is_approved = models.BooleanField(default=True, verbose_name='Одобрен')
 
     # Каждый комментарий может получать лайки от нескольких пользователей, и каждый пользователь может лайкать несколько комментариев
     likes = models.ManyToManyField(User, related_name='comment_like', verbose_name='Лайки')
