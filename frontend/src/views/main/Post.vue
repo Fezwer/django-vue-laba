@@ -1,12 +1,14 @@
 <template>
   <div class="home">
     <div class="flex flex-col place-items-center border-b-2">
-      <h1 class="text-center text-5xl font-extrabold mb-5 text-gray-800 tracking-tight leading-tight">
+      <h1
+        class="text-center text-5xl font-extrabold mb-5 text-gray-800 tracking-tight leading-tight"
+      >
         {{ postBySlug.title }}
       </h1>
       <img
         :src="'/uploads/' + this.postBySlug.featuredImage"
-        class="w-1/4 my-5"
+        class="w-1/3 my-5"
       />
       <p class="text-gray-500 text-lg mb-2">
         {{ formatDate(this.postBySlug.createdAt) }} - От

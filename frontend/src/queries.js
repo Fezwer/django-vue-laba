@@ -21,7 +21,6 @@ export const ALL_POSTS = gql`
         name
         slug
       }
-      featuredImage
       user {
         username
         avatar
@@ -39,6 +38,10 @@ export const POSTS_BY_CATEGORY = gql`
       isPublished
       isFeatured
       createdAt
+      user {
+        username
+        avatar
+      }
     }
   }
 `;
@@ -55,6 +58,10 @@ export const POSTS_BY_TAG = gql`
       category {
         name
         slug
+      }
+      user {
+        username
+        avatar
       }
     }
   }
