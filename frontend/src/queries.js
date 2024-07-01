@@ -21,6 +21,11 @@ export const ALL_POSTS = gql`
         name
         slug
       }
+      featuredImage
+      user {
+        username
+        avatar
+      }
     }
   }
 `;
