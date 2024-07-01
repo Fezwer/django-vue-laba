@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <div class="flex flex-col place-items-center border-b-2">
-      <!-- Featured Image and title -->
       <img
         :src="'/uploads/' + this.postBySlug.featuredImage"
         class="w-full my-5"
@@ -15,7 +14,6 @@
       </p>
     </div>
 
-    <!-- Tags -->
     <div class="flex flex-wrap my-4">
       <div class="mr-5 text-sm font-medium">Теги:</div>
       <router-link
@@ -27,12 +25,10 @@
       >
     </div>
 
-    <!-- Main content -->
     <div class="py-5 font-serif space-y-4">
       <div v-html="this.postBySlug.content"></div>
     </div>
 
-    <!-- Like, Comment and Share -->
     <div
       class="flex flex-wrap py-4 space-x-8 justify-center items-center text-xl"
     >
@@ -57,18 +53,8 @@
           }}</span></i
         >
       </div>
-      <div @click="copyLinkToClipboard">
-        <i class="fa-solid fa-share-nodes"></i>
-      </div>
     </div>
 
-    <!-- Tooltip -->
-    <div v-if="showTooltip" class="tooltip">
-      Ссылка скопирована!
-    </div>
-
-    <!-- Comment Section -->
-    <!-- Pass the approved comments and the post id to the comment component -->
     <comment-section-component
       v-if="this.approvedComments && this.showComment"
       :comments="this.approvedComments"
@@ -95,13 +81,12 @@ export default {
       liked: false,
       numberOfLikes: 0,
       userID: null,
-      showComment: false,
+      showComment: true,
       showTooltip: false,
     };
   },
 
   computed: {
-    // Filters out the unapproved comments
     approvedComments() {
       return this.comments.filter((comment) => comment.isApproved);
     },
@@ -121,11 +106,8 @@ export default {
     this.postBySlug = post.data.postBySlug;
     this.comments = post.data.postBySlug.commentSet;
 
-    // Check if the current user has liked the post
-    // Get the current user id
     this.userID = JSON.parse(localStorage.getItem("user")).id;
 
-    // Find if the current user has liked the post
     let likedUsers = this.postBySlug.likes;
 
     for (let likedUser in likedUsers) {
@@ -134,7 +116,6 @@ export default {
       }
     }
 
-    // Get the number of likes
     this.numberOfLikes = parseInt(this.postBySlug.numberOfLikes);
   },
 
@@ -186,7 +167,7 @@ export default {
           }, 2000);
         },
         (err) => {
-          console.error('Ошибка копирования: ', err);
+          console.error("Ошибка копирования: ", err);
         }
       );
     },
