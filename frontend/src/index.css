@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom styles */
+body {
+  @apply bg-gray-100 text-gray-800;
+}
+
+header, footer {
+  @apply w-screen;
+}
+
+footer {
+  @apply bg-gray-900 text-white py-6;
+}
+
+nav a {
+  @apply text-lg font-medium hover:text-teal-400;
+}
+
+button {
+  @apply text-lg font-medium hover:text-teal-400;
+}
+
+.menu-open {
+  @apply translate-x-0;
+}

@@ -23,7 +23,7 @@
       </div>
 
       <button
-        class="block text-white bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        class="block text-white bg-blue-500 hover:bg-blue-700 hover:text-blue-100 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         type="button"
         @click="this.modalIsHidden = !this.modalIsHidden"
       >
@@ -164,7 +164,7 @@
                 <button
                   data-modal-toggle="defaultModal"
                   type="submit"
-                  class="text-white bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  class="text-white bg-blue-500 hover:bg-blue-700 hover:text-blue-100 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
                   Сохранить
                 </button>

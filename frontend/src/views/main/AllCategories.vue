@@ -7,7 +7,7 @@
       <router-link
         v-for="category in this.allCategories"
         :key="category.name"
-        class="my-2 mr-5 text-sm font-medium uppercase text-teal-500 hover:underline hover:text-teal-700"
+        class="my-2 mr-5 text-sm font-medium uppercase text-blue-500 hover:underline hover:text-blue-700"
         :to="`/category/${category.slug}`"
         >{{ category.name }}</router-link
       >
