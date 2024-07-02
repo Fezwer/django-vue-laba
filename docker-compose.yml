@@ -4,20 +4,13 @@ services:
   backend:
     build:
       context: ./backend
-    volumes:
-      - media_volume:/app/media  # Общий том для медиа-файлов
-    environment:
-      MEDIA_ROOT: /app/media
     ports:
-      - '8000:8000'
+      - "8000:8000"
+    depends_on:
+      - frontend
 
   frontend:
     build:
       context: ./frontend
-    volumes:
-      - media_volume:/app/public/uploads  # Общий том для медиа-файлов
     ports:
       - "8080:8080"
-
-volumes:
-  media_volume:

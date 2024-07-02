@@ -133,7 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_UPLOAD_PATH = "posts/uploads/%Y/%m/%d/"
 
 # Media Files
-MEDIA_ROOT = '/app/media'  # Путь внутри контейнера
+MEDIA_ROOT = os.path.join(BASE_DIR, '../frontend/public/uploads')
 MEDIA_URL = '/media/'
 
 print(MEDIA_ROOT)
