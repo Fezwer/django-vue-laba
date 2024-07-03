@@ -1,20 +1,17 @@
-# Используем официальный образ Node.js
-FROM node:14
+# Используем официальный последний образ nginx
+FROM nginx:latest
 
-# Устанавливаем рабочую директорию внутри Docker контейнера
-WORKDIR /app
+# Удаляем стандартный файл конфигурации nginx
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Копируем все файлы проекта внутрь Docker контейнера
-COPY . /app/
+# Копируем наш собственный файл конфигурации nginx в контейнер
+COPY nginx.conf /etc/nginx/conf.d
 
-# Устанавливаем зависимости и собираем проект
-RUN npm cache clean --force
-RUN npm update -g npm
-RUN npm install
-RUN npm run build
+# Копируем содержимое папки dist в стандартную директорию nginx
+COPY dist /usr/share/nginx/html
 
-# Экспортируем порт 8080
+# Указываем порт, который будет использоваться для нашего приложения
 EXPOSE 8080
 
-# Запускаем сервер разработки Vue
-CMD npm run serve
+# Это уже для старта
+CMD ["nginx", "-g", "daemon off;"]

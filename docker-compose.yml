@@ -15,7 +15,7 @@ services:
     build:
       context: ./frontend
     volumes:
-      - media_volume:/app/public/uploads
+      - media_volume:/usr/share/nginx/html/uploads
     ports:
       - "8080:8080"
 
